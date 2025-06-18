@@ -10,11 +10,11 @@ const Homepage = () => {
       <div className="sticky top-0 z-50">
         <Navbar />
       </div>
-      <div className='bg-gray-100'>
+      <div className='bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 text-white'>
       {/* Scroll progress indicator */}
       <motion.div 
         style={{ scaleX: scrollYProgress }}
-        className='bg-red-500 origin-left w-full h-2 md:h-3 fixed top-14 left-0 rounded-full z-40'
+        className='bg-red-500 origin-left w-full h-2 md:h-3 fixed top-16 left-0 rounded-full z-40'
       />
       
       <div className="flex flex-col items-center justify-center min-h-screen pt-16 pb-8 px-4">
@@ -45,7 +45,7 @@ const Homepage = () => {
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
             Welcome to My Portfolio
           </h1>
-          <p className="text-base sm:text-lg text-gray-700 mb-6 md:mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-white-700 mb-6 md:mb-8 max-w-2xl mx-auto">
             This is a simple portfolio page built with React and Tailwind CSS.
           </p>
         </div>  

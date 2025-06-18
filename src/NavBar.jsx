@@ -1,58 +1,90 @@
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react'; // install lucide-react or replace with svg icons
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('/');
+  const location = useLocation();
 
-const links = ['Home', 'About', 'Services', 'Projects', 'Contact'];
+  const toggleMenu = () => setIsOpen(!isOpen);
 
-export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    const path = location.pathname.replace(/\/+$/, '') || '/';
+    setActiveLink(path);
+  }, [location]);
+
+  const menuItems = [
+    { name: 'Home', to: '/' },
+    { name: 'About', to: '/about' },
+    { name: 'Services', to: '/services' },
+    { name: 'Projects', to: '/projects' },
+    { name: 'Contact', to: '/contact' },
+    { name: 'More', to: '/more' },
+  ];
+
   return (
-    <nav className="bg-gray-900 text-white px-6 py-4 shadow-lg fixed w-full z-50">
-      
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-       
-        <h1 className="text-2xl font-bold text-purple-400">Bibash Dahal</h1>
+    <nav className="bg-[#1e2533] text-white shadow-md w-full">
+      <div className="max-w-[1600px] px-6 py-4 mx-auto flex justify-between items-center">
+        <Link 
+          to="/" 
+          className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+        >
+          Bibash <span className="text-blue-400">Dahal</span>
+        </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex gap-6 text-lg">
-          {links.map((link) => (
-            <li key={link} className="hover:text-purple-400 transition duration-300 cursor-pointer">
-              {link}
+        <ul className="hidden lg:flex gap-2 items-center text-sm font-medium">
+          {menuItems.map(({ name, to }) => (
+            <li key={name}>
+              <Link
+                to={to}
+                className={`px-4 py-2 rounded-full transition-all duration-300 ${
+                  activeLink === to 
+                    ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white' 
+                    : 'hover:text-purple-400'
+                }`}
+              >
+                {name}
+              </Link>
             </li>
           ))}
         </ul>
 
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden text-white focus:outline-none"
+        {/* Mobile Menu Button */}
+        <button 
+          className="lg:hidden focus:outline-none" 
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
         >
-          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.ul
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="md:hidden bg-gray-800 mt-2 rounded-lg overflow-hidden"
-          >
-            {links.map((link) => (
-              <li
-                key={link}
-                className="px-6 py-3 hover:bg-purple-800 hover:text-white transition-colors duration-300 cursor-pointer border-b border-gray-700 last:border-none"
-              >
-                {link}
+      {isOpen && (
+        <div className="lg:hidden bg-[#1e2533] px-6 pb-4">
+          <ul className="flex flex-col gap-2 text-sm font-medium">
+            {menuItems.map(({ name, to }) => (
+              <li key={name}>
+                <Link
+                  to={to}
+                  onClick={() => setIsOpen(false)}
+                  className={`block px-4 py-2 rounded-full transition-all duration-300 ${
+                    activeLink === to 
+                      ? 'bg-gradient-to-r from-purple-500 to-blue-500 text-white' 
+                      : 'hover:text-purple-400'
+                  }`}
+                >
+                  {name}
+                </Link>
               </li>
             ))}
-          </motion.ul>
-        )}
-      </AnimatePresence>
-      
+          </ul>
+        </div>
+      )}
     </nav>
   );
-}
+};
+
+export default Navbar;

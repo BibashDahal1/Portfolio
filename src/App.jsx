@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './Homepage.jsx';
+import About from './About.jsx';
 
 function App() {
   
@@ -10,7 +11,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        {/* Add more routes here as needed */}
+        <Route path="/about" element={<About />} />
       </Routes>
     </>
   )
