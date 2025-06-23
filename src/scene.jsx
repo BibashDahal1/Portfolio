@@ -21,10 +21,10 @@ const scene = ({progress=0}) => {
     useEffect(()=>{
         const updateCamPos=()=>{
             const position= [[-3.4896, -4.664,4.345],
-            [-4.2527, -3.0087, 3.88],
-            [2.93,-0.82,4.66],
-            [5.64, 0.04, -5.05],
-            [-3.489, -4.6644, 4.8454]
+            [14.0307, 0.2348,6.3555],
+            [-6.9387,-9.1954, 4.9783],
+            [8.3154, -1.24786, 7.58479],
+            [-12.964856, -7.7783, 2.9529]
 
         ];
 
@@ -34,9 +34,9 @@ const scene = ({progress=0}) => {
         if(position>=1){
             const [x, y, z] = position[position.length - 1];
             gsap.to(cameraRef.current.position,{
-                x:-3.489,
-                y:-4.6644,
-                z:4.8454,
+                x:7.4711,
+                y:-12.4009,
+                z:2.1379,
                 duration:0.5,
                 ease:"power1.out"
             })
@@ -93,7 +93,7 @@ const scene = ({progress=0}) => {
     />
     <Environment preset='city' />
     <Eye />
-    <axesHelper args={[5]} />
+    {/* <axesHelper args={[5]} /> */}
     {/* <OrbitControls /> */}
     </>
   )
